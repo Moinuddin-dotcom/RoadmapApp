@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Register = () => {
 
@@ -18,7 +19,7 @@ const Register = () => {
             })
             .catch(err => {
                 console.log("Error registering user: ", err.message)
-                // toast.error("Error registering user: ", err.message)
+                toast.error("Error registering user: ", err.message)
             })
     };
     return (
