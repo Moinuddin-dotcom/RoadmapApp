@@ -1,14 +1,28 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const Login = () => {
-
+    const { signIn } = useAuth()
+    const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-
         console.log(data);
+        signIn(data.email, data.password)
+            .then(res => {
+                const user = res.user
+                toast.success("User log in successfully", user)
+                // setLoading(true)
+                navigate('/')
+            })
+            .catch(err => {
+                toast.error("Error logged in user: ", err.message)
+            })
+
+
     };
     return (
         <div>

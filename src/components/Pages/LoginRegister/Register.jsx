@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const Register = () => {
 
     const { createUser } = useAuth()
+    const axiosPublic = useAxiosPublic()
+    const navigate = useNavigate()
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
 
@@ -16,6 +19,29 @@ const Register = () => {
             .then(res => {
                 const user = res.user
                 console.log("User created successfully on", user)
+                // .then(() => {
+                // console.log("User profile updated successfully")
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                    // photo: data.PhotoURL,
+                    role: "member",
+                    status: " "
+                }
+                console.log(userInfo)
+                axiosPublic.post('/users', userInfo)
+                    .then((res) => {
+                        if (res.data.insertedId) {
+                            // console.log("User added to the database")
+                            toast.success("User registered successfully")
+                            reset()
+                            navigate('/login')
+                        }
+                    })
+                // })
+                // .catch((err) => {
+                //     console.log(err.message)
+                // })
             })
             .catch(err => {
                 console.log("Error registering user: ", err.message)

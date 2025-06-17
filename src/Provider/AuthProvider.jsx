@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { app } from "../Firebase/Firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null)
 const auth = getAuth(app)
@@ -8,6 +9,7 @@ const auth = getAuth(app)
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const axiosPublic = useAxiosPublic()
 
     // create new user
     const createUser = (email, passord) => {
@@ -29,16 +31,25 @@ const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
             console.log("Current user=> ", currentUser)
             setUser(currentUser)
+            // if (currentUser?.email) {
+            //     setUser(currentUser)
+            //     const { data } = await axiosPublic.post(`${import.meta.env.VITE_API_URL}/jwt`, { email: currentUser?.email }, { withCredentials: true })
+            //     console.log(data)
+            // } else {
+            //     setUser(currentUser)
+            //     const { data } = await axiosPublic.get(`${import.meta.env.VITE_API_URL}/logout`, { withCredentials: true })
+            //     console.log(data)
+            // }
             setLoading(false)
         })
         return () => {
             unSubscribe()
         }
 
-    }, [])
+    }, [axiosPublic])
 
 
 
