@@ -1,3 +1,4 @@
+import AllPost from "../components/Pages/HomePages/AllPost"
 import CreatePost from "../components/Pages/HomePages/CreatePost"
 import useRole from "../Hooks/useRole"
 
@@ -12,7 +13,9 @@ const Home = () => {
             {role === 'admin' && <div className="py-8">
                 <CreatePost />
             </div>}
-            <div className="border-4 border-black bg-amber-900 h-[50vh]">Buttom</div>
+            <div className="">
+                <AllPost />
+            </div>
         </div>
     )
 }

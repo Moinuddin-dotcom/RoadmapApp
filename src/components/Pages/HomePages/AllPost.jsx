@@ -1,0 +1,82 @@
+import React from 'react'
+import useAllPost from '../../../Hooks/useAllPost'
+import { BiUpvote } from 'react-icons/bi'
+// import { useForm } from 'react-hook-form'
+import From from './AddComment'
+import { Link } from 'react-router-dom'
+import useAxiosPublic from '../../../Hooks/useAxiosPublic'
+import useUser from '../../../Hooks/useUser'
+import useRole from '../../../Hooks/useRole'
+
+const AllPost = () => {
+
+    const axiosPublic = useAxiosPublic()
+    const [allPost, refetch] = useAllPost()
+    const [userData] = useUser()
+    const [role] = useRole()
+    // console.log(userData)
+
+    const handleLike = async (id) => {
+        console.log('Clicked Like', id)
+        if (!userData?.email) return
+        try {
+            const { data } = await axiosPublic.patch(`/posts/like/${id}`, { userEmail: userData?.email })
+            refetch()
+            console.log(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+
+    return (
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-center '>
+            {
+                allPost?.map(postData =>
+                    <div key={postData._id} className='border border-gray-600 rounded-lg py-5 px-2'>
+                        <div className='flex gap-4 items-center'>
+                            <div className="like border border-blue-200 py-3 px-3 rounded-lg">
+                                <button
+                                    onClick={() => handleLike(postData._id)}
+                                    className='flex justify-center items-center gap-1.5 cursor-pointer'><BiUpvote className='text-blue-500 text-lg' />({postData?.likes?.length})</button>
+                            </div>
+                            <div className="title-cat">
+                                <Link className="text-xl font-semibold mt-3" to={`/single-post/${postData._id}`}>{postData?.title}</Link>
+                                <h2 ></h2>
+                                <h3 className="text-md text-blue-500 font-semibold mb-4">Planning</h3>
+                            </div>
+                        </div>
+                        < div >
+                            <div className="name">
+                                <span className='text-md font-semibold text-violet-950 hover:bg-gray-200 py-1 px-2 rounded-lg cursor-pointer'>{postData?.name}</span>
+                                <div className='wrap-anywhere'>{postData?.details}</div>
+                                <div className='flex gap-2 items-center '>
+                                    {
+                                        role === 'admin' && <>
+                                            <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>Edit Post</p>
+                                            <p className='text-sm text-black' >|</p>
+                                            <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>Delete Post</p>
+                                            <p className='text-sm text-black' >|</p>
+                                        </>
+                                    }
+                                    <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>Add Comment</p>
+                                    <p className='text-sm text-black' >|</p>
+                                    <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>See all comment</p>
+
+                                </div>
+                            </div>
+                        </div >
+                        {/* <div className="comment">
+                            <From />
+                        </div> */}
+                    </div>
+                )
+            }
+        </div>
+    )
+}
+
+export default AllPost
+
+

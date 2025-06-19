@@ -1,14 +1,27 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import useUser from '../../../Hooks/useUser';
+import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
 
 const PostFrom = () => {
     const [userData] = useUser()
+    const axiosPublic = useAxiosPublic()
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
-        const postData 
+        // const postData 
+        await axiosPublic.post('/post', data)
+            .then(res => {
+                if (res.data.insertedId) {
+                    toast.success("Posted successfully")
+                    reset()
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     return (
         <div>

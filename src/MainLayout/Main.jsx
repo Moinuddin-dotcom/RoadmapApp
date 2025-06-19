@@ -9,7 +9,7 @@ const Main = () => {
             <nav>
                 <Navbar />
             </nav>
-            <main className='h-screen'>
+            <main className=''>
                 <Outlet />
             </main>
             <footer>
