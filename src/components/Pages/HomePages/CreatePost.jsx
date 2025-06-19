@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import PostFrom from './PostFrom';
 
 const CreatePost = () => {
@@ -26,8 +25,7 @@ const CreatePost = () => {
                             {/* Close button */}
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="px-4 py-2 bg-red-500 text-white rounded-md"
-                            >
+                                className="px-4 py-2 bg-red-500 text-white rounded-md">
                                 Close
                             </button>
                         </div>

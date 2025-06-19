@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useAllPost from '../../../Hooks/useAllPost'
 import { BiUpvote } from 'react-icons/bi'
 // import { useForm } from 'react-hook-form'
@@ -15,6 +15,7 @@ const AllPost = () => {
     const [userData] = useUser()
     const [role] = useRole()
     // console.log(userData)
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleLike = async (id) => {
         console.log('Clicked Like', id)
@@ -54,22 +55,33 @@ const AllPost = () => {
                                 <div className='flex gap-2 items-center '>
                                     {
                                         role === 'admin' && <>
-                                            <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>Edit Post</p>
+                                            <p onClick={() => setIsOpen(true)} className='text-sm text-gray-500 hover:text-black cursor-pointer'>Edit Post</p>
                                             <p className='text-sm text-black' >|</p>
-                                            <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>Delete Post</p>
+                                            <p onClick={() => setIsOpen(true)} className='text-sm text-gray-500 hover:text-black cursor-pointer'>Delete Post</p>
                                             <p className='text-sm text-black' >|</p>
                                         </>
                                     }
-                                    <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>Add Comment</p>
+                                    <p onClick={() => setIsOpen(true)} className='text-sm text-gray-500 hover:text-black cursor-pointer'>Add Comment</p>
                                     <p className='text-sm text-black' >|</p>
-                                    <p className='text-sm text-gray-500 hover:text-black cursor-pointer'>See all comment</p>
+                                    <p onClick={() => setIsOpen(true)} className='text-sm text-gray-500 hover:text-black cursor-pointer'>See all comment</p>
 
                                 </div>
                             </div>
                         </div >
-                        {/* <div className="comment">
-                            <From />
-                        </div> */}
+                        {/* Modal */}
+                        {isOpen && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                                <div className="bg-white p-6 rounded-lg w-[90%] max-w-2xl shadow-lg relative">
+                                    {/* <PostFrom /> */}
+                                    {/* Close button */}
+                                    <button
+                                        onClick={() => setIsOpen(false)}
+                                        className="px-4 py-2 bg-red-500 text-white rounded-md">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )
             }
