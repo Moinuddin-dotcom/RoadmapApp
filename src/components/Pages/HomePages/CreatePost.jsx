@@ -12,7 +12,7 @@ const CreatePost = () => {
                 {/* Button to open Modal */}
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="px-12 py-2 bg-gradient-to-br from-purple-600 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg cursor-pointer"
+                    className="bg-black/90 text-white px-10 py-2 rounded-lg cursor-pointer"
                 >
                     Create Post
                 </button>

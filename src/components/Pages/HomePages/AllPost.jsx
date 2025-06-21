@@ -58,6 +58,12 @@ const AllPost = () => {
         });
     }
 
+    // User end 
+    // const handleAddComment = (id) => {
+    //     console.log("Comment ID:", id)
+    //     setSelectedPostId(id);
+    // }
+
     const closeModal = () => {
         setSelectedPostId(null);
     };
@@ -77,7 +83,7 @@ const AllPost = () => {
                                     className='flex justify-center items-center gap-1.5 cursor-pointer'><BiUpvote className='text-blue-500 text-lg' />({postData?.likes?.length})</button>
                             </div>
                             <div className="title-cat">
-                                <Link className="text-xl font-semibold mt-3" to={`/single-post/${postData._id}`}>{postData?.title}</Link>
+                                <Link className="text-xl font-semibold mt-3" to={`/post/single-post-page/${postData._id}`}>{postData?.title}</Link>
                                 <h2 ></h2>
                                 <h3 className="text-md text-blue-500 font-semibold mb-4">Planning</h3>
                             </div>
@@ -95,17 +101,20 @@ const AllPost = () => {
                                             <p className='text-sm text-black' >|</p>
                                         </>
                                     }
-                                    <p onClick={() => handleEdit(postData._id)} className='text-sm text-gray-500 hover:text-black cursor-pointer'>Add Comment</p>
-                                    <p className='text-sm text-black' >|</p>
-                                    <p onClick={() => handleEdit(postData._id)} className='text-sm text-gray-500 hover:text-black cursor-pointer'>See all comment</p>
-
+                                    <Link to={`/post/single-post-page/${postData._id}`}>
+                                        <p
+                                            //  onClick={() => handleAddComment(postData._id)}
+                                            className='text-sm text-gray-500 hover:text-black cursor-pointer'>Add Comment</p>
+                                    </Link>
+                                    {/* <p className='text-sm text-black' >|</p>
+                                    <p onClick={() => handleEdit(postData._id)} className='text-sm text-gray-500 hover:text-black cursor-pointer'>See all comment</p> */}
                                 </div>
                             </div>
                         </div >
                         {/* Modal */}
                         {selectedPostId && (
                             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                                <div className="bg-white p-6 rounded-lg w-[90%] max-w-2xl shadow-lg relative">
+                                <div className="bg-white p-6 rounded-lg w-[90%] max-w-8xl shadow-lg relative">
                                     <Modal id={postData._id} onSuccess={() => { refetch(); closeModal() }} />
                                     {/* Close button */}
                                     <button

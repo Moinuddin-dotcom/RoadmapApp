@@ -33,7 +33,7 @@ const EditPost = ({ postData, onSuccess }) => {
                     type="text"
                     defaultValue={name}
                     {...register('name')}
-                    className="w-full bg-gray-800 text-white py-2 px-4 rounded"
+                    className="w-full bg-white text-black py-2 px-4 rounded"
                     readOnly
                 />
                 {/* {errors.name && <p className="text-red-500">{errors.name.message}</p>} */}

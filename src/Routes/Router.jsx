@@ -7,6 +7,7 @@ import Login from "../components/Pages/LoginRegister/Login";
 import Home from "../Layouts/Home";
 import CreatePostPage from "../components/Pages/HomePages/PostFrom";
 import Modal from "../components/Pages/PostUpdateModal/Modal";
+import SinglePostPage from "../components/Pages/HomePages/SinglePostPage";
 
 
 export const Router = createBrowserRouter([
@@ -21,6 +22,10 @@ export const Router = createBrowserRouter([
             {
                 path: "/post/single-post/:id",
                 element: <Modal />
+            },
+            {
+                path: "/post/single-post-page/:id",
+                element: <SinglePostPage />
             },
             {
                 path: "/register",

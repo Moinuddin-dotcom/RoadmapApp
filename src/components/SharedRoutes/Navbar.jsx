@@ -16,19 +16,21 @@ const Navbar = () => {
             .catch((err) => toast.error(err.message));
     }
     return (
-        <div className='flex justify-between items-center max-w-[90vw] mx-auto border-2 border-black py-5 px-2'>
+        <div className='flex justify-between items-center border-b border-gray-500 py-5 px-20'>
             <Link to={'/'}><h1>RoadMap App</h1></Link>
             <div>
                 {user ? <>
-                    <div><h1>{userData.name}</h1></div>
-                    <div><h1>{userData.role}</h1></div>
-                    <button
-                        onClick={handleLogout}
-                        className='bg-gradient-to-br from-purple-600 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 rounded-lg cursor-pointer'
-                    >Log out</button>
+                    <div className='flex gap-4 items-center'>
+                        <h1>{userData.name}</h1>
+                        {/* <div><h1>{userData.role}</h1></div> */}
+                        <button
+                            onClick={handleLogout}
+                            className='bg-black/90 text-white px-10 py-2 rounded-lg cursor-pointer'
+                        >Log out</button>
+                    </div>
                 </>
                     : <Link to={'/login'}>
-                        <button className='bg-gradient-to-br from-purple-600 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 rounded-lg cursor-pointer'>Log In</button>
+                        <button className='bg-black/90 text-white px-10 py-2 rounded-lg cursor-pointer'>Log In</button>
                     </Link>}
             </div>
         </div>
