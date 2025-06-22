@@ -3,7 +3,7 @@ import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import EditPost from './EditPost';
 // import { useParams } from 'react-router-dom';
 
-const Modal = ({ id, onSuccess }) => {
+const Modal = ({ id, onSuccess, isLoading }) => {
     // const { id } = useParams();
     const axiosPublic = useAxiosPublic();
     console.log('Modal ID:', id);
@@ -31,7 +31,7 @@ const Modal = ({ id, onSuccess }) => {
     if (!postData) return <div>No post found.</div>;
     return (
         <div>
-            <EditPost postData={postData} onSuccess={onSuccess} />
+            <EditPost postData={postData} onSuccess={onSuccess} isLoading={isLoading} />
         </div>
     )
 }

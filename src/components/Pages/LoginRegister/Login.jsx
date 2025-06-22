@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
@@ -7,7 +7,22 @@ import toast from 'react-hot-toast';
 const Login = () => {
     const { signIn } = useAuth()
     const navigate = useNavigate()
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+
+    const roleCredentials = {
+        admin: { email: 'admin@gmail.com', password: 'Admin@12' },
+        member: { email: 'tasif@gmail.com', password: 'Tasif@12' },
+    };
+    const handleRole = (role) => {
+        setEmail(roleCredentials[role].email)
+        setPassword(roleCredentials[role].password)
+
+        setValue('email', roleCredentials[role].email)
+        setValue('password', roleCredentials[role].password)
+    }
 
     const onSubmit = (data) => {
         console.log(data);
@@ -25,25 +40,21 @@ const Login = () => {
 
     };
     return (
-        <div>
+        <div className='bg-black'>
             <div className="flex lg:max-w-[80vw] mx-auto min-h-screen dark:bg-black text-white p-5 md:p-10">
 
                 {/* Left Panel */}
                 <div className="flex-1 flex flex-col justify-center lg:px-16">
                     <h2 className="text-2xl font-bold mb-6 text-center text-black dark:text-white">Log In Account</h2>
                     <p className="mb-8 text-center text-black dark:text-white">Enter your email & password.</p>
-                    {/* social log in */}
-                    {/* <GoogleLogin /> */}
 
-                    {/* <div className="divider divider-accent text-black dark:text-white">OR</div> */}
-                    <div className=' my-2 text-center'>
-                        {/* <h1 className='text-black dark:text-white pb-2'>Role wise Email & Password</h1> */}
-                        {/* <div className='flex flex-col md:flex-row justify-center gap-4'>
+                    <div className=' my-2 text-center '>
+                        <h1 className='text-black dark:text-white pb-2'>Role wise Email & Password</h1>
+                        <div className='flex flex-col md:flex-row justify-center gap-4 border-t border-white'>
 
-              <Button onClick={() => handleRole('admin')} variant="contained">Admin</Button>
-              <Button onClick={() => handleRole('trainer')} variant="contained">Trainer</Button>
-              <Button onClick={() => handleRole('member')} variant="contained">Member</Button>
-            </div> */}
+                            <button onClick={() => handleRole('admin')} className='bg-white text-black py-2 w-[50%] rounded mt-4 font-bold cursor-pointer' >Admin</button>
+                            <button onClick={() => handleRole('member')} className='bg-white text-black py-2 w-[50%] rounded mt-4 font-bold cursor-pointer' >Member</button>
+                        </div>
                     </div>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -53,7 +64,7 @@ const Login = () => {
                             // value={email}
                             // onChange={(e) => setEmail(e.target.value)}
                             {...register("email", { required: "Email is required" })}
-                            //   defaultValue={email}
+                            defaultValue={email}
                             className="w-full bg-gray-800 text-white py-2 px-4 rounded"
                             placeholder="abc@gmail.com"
                         />
@@ -62,8 +73,7 @@ const Login = () => {
                         {/* Password */}
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Your Password</label>
                         <input
-                            // value={password}
-                            // onChange={(e) => setPassword(e.target.value)}
+                            defaultValue={password}
                             {...register("password", {
                                 required: "Password is required",
                                 minLength: { value: 6, message: "Must be at least 6 characters" },

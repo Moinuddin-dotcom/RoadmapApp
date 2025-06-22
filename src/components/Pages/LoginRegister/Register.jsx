@@ -49,7 +49,7 @@ const Register = () => {
             })
     };
     return (
-        <div>
+        <div className="bg-black">
             <div className="flex  lg:max-w-[80vw] mx-auto min-h-screen dark:bg-black text-white p-10">
                 {/* Left Panel */}
                 <div className="hidden bg-gradient-to-br from-purple-700 to-black p-12 lg:flex flex-col justify-center items-center rounded-l-xl lg:w-[30vw] xl:w-[35vw] ">

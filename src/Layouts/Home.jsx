@@ -13,7 +13,7 @@ const Home = () => {
             {role === 'admin' && <div className="py-8">
                 <CreatePost />
             </div>}
-            <div className="">
+            <div className="min-h-screen mt-10">
                 <AllPost />
             </div>
         </div>

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import useUser from '../../../Hooks/useUser';
 import CommentWorks from './CommentWorks/CommentWorks';
+import Loading from '../../Loading/Loading';
 
 const SinglePostPage = () => {
     const axiosPublic = useAxiosPublic();
@@ -37,12 +38,12 @@ const SinglePostPage = () => {
         setOpenInput(true);
     }
 
-   
 
 
-    if (isLoading) return <div>Loading...</div>;
+
+    if (isLoading) return <Loading />
     return (
-        <div className='max-w-[80vw] mx-auto'>
+        <div className='max-w-[80vw] mx-auto min-h-screen mt-14'>
             <div className='border border-black/20 rounded-lg py-5 px-2'>
                 <h1 className='text-2xl font-semibold'>{singlePostData?.title}</h1>
                 <h3 className='text-sm text-gray-600 '>{singlePostData?.name}</h3>
@@ -86,7 +87,7 @@ const SinglePostPage = () => {
 
             {/* Comment update and Delete part is in CommentWorks component */}
             <div>
-                <CommentWorks singlePostData={singlePostData} refetch={refetch}/>
+                <CommentWorks singlePostData={singlePostData} refetch={refetch} />
             </div>
 
         </div>

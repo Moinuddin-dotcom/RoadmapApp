@@ -8,6 +8,7 @@ import Home from "../Layouts/Home";
 import CreatePostPage from "../components/Pages/HomePages/PostFrom";
 import Modal from "../components/Pages/PostUpdateModal/Modal";
 import SinglePostPage from "../components/Pages/HomePages/SinglePostPage";
+import ToDoRoadmap from "../components/ToDoRoadmap/ToDoRoadmap";
 
 
 export const Router = createBrowserRouter([
@@ -27,6 +28,10 @@ export const Router = createBrowserRouter([
                 path: "/post/single-post-page/:id",
                 element: <SinglePostPage />
             },
+            // {
+            //     path: "/todo-roadmap",
+            //     element: <ToDoRoadmap />
+            // },
             {
                 path: "/register",
                 element: <Register />
