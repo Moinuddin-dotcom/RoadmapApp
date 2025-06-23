@@ -34,15 +34,22 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
             console.log("Current user=> ", currentUser)
             setUser(currentUser)
-            // if (currentUser?.email) {
-            //     setUser(currentUser)
-            //     const { data } = await axiosPublic.post(`${import.meta.env.VITE_API_URL}/jwt`, { email: currentUser?.email }, { withCredentials: true })
-            //     console.log(data)
-            // } else {
-            //     setUser(currentUser)
-            //     const { data } = await axiosPublic.get(`${import.meta.env.VITE_API_URL}/logout`, { withCredentials: true })
-            //     console.log(data)
-            // }
+            setLoading(true)
+            if (currentUser?.email) {
+                try {
+                    const userInfo = { email: currentUser?.email };
+                    const res = await axiosPublic.post('/jwt', userInfo, { withCredentials: true });
+                    console.log('Token set in cookie:', res.data);
+                } catch (err) {
+                    console.error('Error setting token:', err.response?.data || err.message);
+                }
+            } else {
+                try {
+                    await axiosPublic.get('/logout')
+                } catch (err) {
+                    console.error('Error during logout:', err);
+                }
+            }
             setLoading(false)
         })
         return () => {
