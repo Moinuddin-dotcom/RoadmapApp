@@ -19,14 +19,10 @@ const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-
-        console.log(data);
         createUser(data.email, data.password)
             .then(res => {
                 const user = res.user
                 console.log("User created successfully on", user)
-                // .then(() => {
-                // console.log("User profile updated successfully")
                 const userInfo = {
                     name: data.name,
                     email: data.email,
@@ -34,23 +30,16 @@ const Register = () => {
                     role: "member",
                     status: " "
                 }
-                console.log(userInfo)
                 axiosPublic.post('/users', userInfo)
                     .then((res) => {
                         if (res.data.insertedId) {
-                            // console.log("User added to the database")
                             toast.success("User registered successfully")
                             reset()
                             navigate('/login')
                         }
                     })
-                // })
-                // .catch((err) => {
-                //     console.log(err.message)
-                // })
             })
             .catch(err => {
-                console.log("Error registering user: ", err.message)
                 toast.error("Error registering user: ", err.message)
             })
     };

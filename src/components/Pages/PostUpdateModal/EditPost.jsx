@@ -10,14 +10,12 @@ const EditPost = ({ postData, onSuccess, isLoading }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        console.log("From edited", data);
         const updateInfo = {
             title: data.title,
             details: data.details,
             category: data.category,
         }
         const { data: single } = await axiosPublic.patch(`/post/update-single-post/${postData._id}`, updateInfo)
-        console.log(single);
         if (single.modifiedCount > 0) {
             reset(single);
             toast.success("Post updated successfully");

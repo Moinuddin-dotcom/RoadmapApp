@@ -32,7 +32,6 @@ const Login = () => {
     }
 
     const onSubmit = (data) => {
-        console.log(data);
         signIn(data.email, data.password)
             .then(res => {
                 const user = res.user

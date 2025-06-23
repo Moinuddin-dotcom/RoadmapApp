@@ -4,9 +4,7 @@ import EditPost from './EditPost';
 // import { useParams } from 'react-router-dom';
 
 const Modal = ({ id, onSuccess, isLoading }) => {
-    // const { id } = useParams();
     const axiosPublic = useAxiosPublic();
-    console.log('Modal ID:', id);
 
     const [postData, setPostData] = useState(null);
     // const [loading, setLoading] = useState(true);
@@ -15,7 +13,6 @@ const Modal = ({ id, onSuccess, isLoading }) => {
         const fetchPost = async () => {
             try {
                 const { data } = await axiosPublic(`/post/single-post/${id}`);
-                console.log('Fetched Post Data:', data);
                 setPostData(data);
             } catch (error) {
                 console.error('Error fetching post:', error);

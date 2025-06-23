@@ -9,7 +9,6 @@ import useUser from '../../Hooks/useUser'
 const Navbar = () => {
     const { user, logout } = useAuth()
     const [userData] = useUser()
-    console.log(userData)
     const handleLogout = () => {
         logout()
             .then(() => { })

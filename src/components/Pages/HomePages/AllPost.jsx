@@ -8,6 +8,7 @@ import useRole from '../../../Hooks/useRole'
 import Modal from '../PostUpdateModal/Modal'
 import Swal from 'sweetalert2'
 import Loading from '../../Loading/Loading'
+import toast from 'react-hot-toast'
 
 const AllPost = () => {
 
@@ -20,24 +21,20 @@ const AllPost = () => {
     const [sortOrder, setSortOrder] = useState('');
 
     const [allPost, refetch, isLoading] = useAllPost({ category, sortOrder })
-    // console.log('allPost in UI:', allPost.map(post => ({ title: post.title, likes: post.likes?.length || 0 })));
 
 
     const handleLike = async (id) => {
-        console.log('Clicked Like', id)
         if (!userData?.email) return
         try {
-            const { data } = await axiosPublic.patch(`/posts/like/${id}`, { userEmail: userData?.email })
+           await axiosPublic.patch(`/posts/like/${id}`, { userEmail: userData?.email })
             refetch()
-            console.log(data)
         } catch (err) {
-            console.log(err)
+            toast.error(err)
         }
 
     }
 
     const handleEdit = (id) => {
-        console.log("Edit ID:", id)
         setSelectedPostId(id);
     }
 

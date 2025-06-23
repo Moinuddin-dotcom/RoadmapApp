@@ -32,14 +32,15 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            console.log("Current user=> ", currentUser)
+            // console.log("Current user=> ", currentUser)
             setUser(currentUser)
             setLoading(true)
             if (currentUser?.email) {
                 try {
                     const userInfo = { email: currentUser?.email };
-                    const res = await axiosPublic.post('/jwt', userInfo, { withCredentials: true });
-                    console.log('Token set in cookie:', res.data);
+                    // const res = 
+                    await axiosPublic.post('/jwt', userInfo, { withCredentials: true });
+                    // console.log('Token set in cookie:', res.data);
                 } catch (err) {
                     console.error('Error setting token:', err.response?.data || err.message);
                 }

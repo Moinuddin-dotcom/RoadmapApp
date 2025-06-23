@@ -11,7 +11,6 @@ const useUser = () => {
         queryKey: ['user', user?.email],
         queryFn: async () => {
             const { data } = await axiosPublic(`/users/singleUser/${user?.email}`)
-            console.log(data)
             return data
         }
     })

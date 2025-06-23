@@ -19,10 +19,9 @@ const CommentWorks = ({ singlePostData, refetch }) => {
 
     const onSubmit = async (data) => {
         try {
-            const { data: updatedCmnt } = await axiosPublic.patch(`/post/update-comment/${singlePostData?._id}/${editingCommentId}`, {
+            await axiosPublic.patch(`/post/update-comment/${singlePostData?._id}/${editingCommentId}`, {
                 comment: data.comment,
             });
-            console.log("Updated Comment:", updatedCmnt);
             setEditingCommentId(null);
             reset();
             refetch();

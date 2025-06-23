@@ -11,7 +11,6 @@ const PostFrom = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        console.log(data);
         const postData = {
             title: data.title,
             details: data.details,
@@ -28,7 +27,7 @@ const PostFrom = () => {
                 }
             })
             .catch(err => {
-                console.log(err);
+                 toast.error(err)
             })
     }
 

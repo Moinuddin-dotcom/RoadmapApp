@@ -17,28 +17,20 @@ const SinglePostPage = () => {
     const axiosPublic = useAxiosPublic();
     const [userData] = useUser()
     const [singlePostData, isLoading, refetch] = useSinglePostById()
-    console.log('Page Data:', singlePostData?.comments)
     const [openInput, setOpenInput] = useState(false);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        console.log("Submitted Comment:", data.comment);
         const commentInfo = {
             comment: data.comment,
             userEmail: userData?.email,
             userName: userData?.name,
         }
-        // try {
-        const { data: cmnt } = await axiosPublic.patch(`/posts/add-comment/${singlePostData?._id}`, { commentInfo })
+        await axiosPublic.patch(`/posts/add-comment/${singlePostData?._id}`, { commentInfo })
         refetch()
         reset();
         setOpenInput(false);
-        console.log(cmnt)
-        // } catch (err) {
-        //     console.log(err)
-        // }
-
     }
 
     const handleCommentInput = () => {

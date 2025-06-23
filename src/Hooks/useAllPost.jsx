@@ -14,7 +14,6 @@ const useAllPost = ({ category = '', sortOrder = '' } = {}) => {
                 params.sortBy = 'likes';
                 params.sortOrder = sortOrder;
             }
-            console.log('API Params:', params);
             const { data } = await axiosPublic('/post', { params })
             return data
         }
