@@ -6,7 +6,6 @@ import useRole from "../Hooks/useRole"
 
 const Home = () => {
     const [role,] = useRole()
-    console.log(role)
     // if (isLoading) return <Loading />
     return (
         <div className="max-w-[80vw] mx-auto">
